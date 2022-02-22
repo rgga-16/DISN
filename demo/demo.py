@@ -24,6 +24,7 @@ slim = tf.contrib.slim
 lst_dir, cats, all_cats, raw_dirs = create_file_lst.get_all_info()
 
 parser = argparse.ArgumentParser()
+parser.add_argument('--impath',type=str,required=True,help='Path of image to reconstruct from.')
 parser.add_argument('--gpu', type=str, default='0', help='GPU to use [default: GPU 0]')
 parser.add_argument('--max_epoch', type=int, default=1, help='Epoch to run [default: 201]')
 parser.add_argument('--img_h', type=int, default=137, help='Image Height')
@@ -259,7 +260,8 @@ def cam_evl(img_arr):
 
 
 def read_img_get_transmat():
-    img_file = "./demo/03001627_17e916fc863540ee3def89b32cef8e45_20.png"
+    img_file = FLAGS.impath
+    # img_file = "./demo/03001627_17e916fc863540ee3def89b32cef8e45_20.png"
     img_arr = cv2.imread(img_file, cv2.IMREAD_UNCHANGED).astype(np.uint8)[:, :, :3]
     batch_img = np.asarray([img_arr.astype(np.float32) / 255.])
     batch_data = {}
