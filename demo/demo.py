@@ -262,7 +262,9 @@ def cam_evl(img_arr):
 def read_img_get_transmat():
     img_file = FLAGS.impath
     # img_file = "./demo/03001627_17e916fc863540ee3def89b32cef8e45_20.png"
-    img_arr = cv2.imread(img_file, cv2.IMREAD_UNCHANGED).astype(np.uint8)[:, :, :3]
+    img = cv2.imread(img_file, cv2.IMREAD_UNCHANGED)
+    img_resized = cv2.resize(img,(FLAGS.img_h,FLAGS.img_w))
+    img_arr = img_resized.astype(np.uint8)[:, :, :3]
     batch_img = np.asarray([img_arr.astype(np.float32) / 255.])
     batch_data = {}
     batch_data['img'] = batch_img
